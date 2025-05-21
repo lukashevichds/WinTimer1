@@ -145,4 +145,78 @@ UserControlTimer2 в форму. К ней будет добавлен экзе�
 пользовательский элемент управления действует во время выполнения
 таким же способом, как в конструкторе.
 ![image](https://github.com/user-attachments/assets/c13953c4-56d4-4d69-8d56-766e587f918c)
+Странная ошибка
+
+Упражнение 3. Создание расширенных элементов управления
+Разработка расширенного элемента управления
+
+1.	Создайте в Visual Studio новое приложение Windows Forms. Назовите его WinButNum.
+![image](https://github.com/user-attachments/assets/e38e6a40-9ad3-4a8b-9bac-4e9567cbe4ae)
+
+2.	В меню Project выберите Add Class. Назовите этот класс ClickButton и щелкните Add.
+
+   ![image](https://github.com/user-attachments/assets/8a8e6dc1-8faa-4c9a-a54d-d7e08d890cb3)
+   ![image](https://github.com/user-attachments/assets/6e126638-438c-4b6c-866f-db0afc4045fa)
+
+3. Измените объявление класса, чтобы ClickButton наследовал класс
+Button:
+public class ClickButton : System.Windows.Forms.Button
+![image](https://github.com/user-attachments/assets/02590242-2495-47d4-8fd2-38a5bfc84658)
+
+4. Добавьте следующее поле и свойство в окно кода с целью создания
+свойства Clicks:
+
+int mClicks;
+public int Clicks
+{
+get { return mClicks; }
+}
+![image](https://github.com/user-attachments/assets/64ee316a-a4ea-46f0-9a26-55a555c87a3b)
+
+5. Переопределите метод OnClick, чтобы инкрементировать закрытую
+переменную mClicks каждый раз, когда щелкается кнопка:
+protected override void OnClick(EventArgs e)
+{
+mClicks++;
+base.OnClick(e);
+}
+![image](https://github.com/user-attachments/assets/e6537473-c1c9-49a0-9da0-f271d2df2db8)
+
+6. Переопределите метод OnPaint, чтобы отобразить количество
+щелчков в правом нижнем углу элемента управления:
+
+protected override void
+OnPaint(System.Windows.Forms.PaintEventArgs pevent)
+{
+base.OnPaint(pevent);
+System.Drawing.Graphics g = pevent.Graphics;
+System.Drawing.SizeF stringsize;
+stringsize = g.MeasureString(Clicks.ToString(),
+this.Font, this.Width);
+g.DrawString(Clicks.ToString(), this.Font,
+System.Drawing.SystemBrushes.ControlText,
+this.Width - stringsize.Width - 3, this.Height -
+stringsize.Height - 3);
+}
+![image](https://github.com/user-attachments/assets/2a5281c9-e8ad-4bd0-8867-0c3d6d3355fd)
+
+7. Сохраните и постройте решение
+   ![image](https://github.com/user-attachments/assets/091b3ea1-c381-4b68-b481-10fe6355491b)
+Вроде бы ничего не изменилось
+
+Применение расширенного элемента управления
+8. Выберите вкладку конструктора Forml.
+![image](https://github.com/user-attachments/assets/32176b4e-fde4-4154-9e61-ec6b6c6dccce)
+Выбрал
+
+9. Из Toolbox перетащите экземпляр ClickButton в форму и измените его размеры в сторону увеличения.
+
+    ![image](https://github.com/user-attachments/assets/1da7d9ca-ee43-4c69-bf4c-4424697f08b0)
+
+10. Постройте и запустите приложение
+    ![image](https://github.com/user-attachments/assets/b32d07af-fc92-449e-afd3-90813746ae89)
+
+    11. В форме щелкайте ClickButton1. Обратите внимание, что количество щелчков отображается в правом нижнем углу.
+Я не вижу, где они отображаются, вроде бы ничего не отображается
+
 
